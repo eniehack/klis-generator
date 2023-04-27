@@ -14,12 +14,23 @@
             let btn = document.getElementById("btn");
             btn.addEventListener("click", (event) => {
                 let name_arr = [];
-                for (var i=0; i < 3; i++) {
+                let mode_elem = document.getElementsByName("mode");
+                let checkvalue_str;
+
+                for (let i = 0; i < mode_elem.length; i++){
+                    if (mode_elem.item(i).checked){
+                        checkvalue_str = mode_elem.item(i).value;
+                    }
+                }
+
+                let checkvalue = Number(checkvalue_str);
+
+                for (var i=0; i < checkvalue; i++) {
                     let index = Math.floor(Math.random() * arr.length);
                     console.log(index);
                     name_arr.push(arr[index]);
                 }
-                console.log("---")
+                console.log("---");
                 let dot_ptr = Math.floor(Math.random() * (arr.length + 1));
                 name_arr.splice(dot_ptr, 0, "・");
 
@@ -46,6 +57,12 @@
             <span id="result"></span>
             <span>学類」なんです！</span>
         </p>
+        <fieldset>
+            <input type="radio" name="mode" value="3" id="default-mode" checked>
+            <label for="default-mode">default</label>
+            <input type="radio" name="mode" value="10" id="overdose-mode">
+            <label for="overdose-mode">overdose mode</label>
+        </fieldset>
         <button id="btn">KLiSを作る</button>
         <a href="http://twitter.com/intent/tweet" id="tweet_btn" target="_blank" rel="noreferrer noopener">Tweet</a>
     </main>
