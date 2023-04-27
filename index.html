@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head prefix="og: http://ogp.me/ns#">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta pro>
+    <title>KLiS正式名称ジェネレータ</title>
+    <script defer="defer">
+        const arr = ["知識", "情報", "図書館"];
+        window.addEventListener("load", (event) => {
+            let p = document.getElementById("result");
+            let tw_btn = document.getElementById("tweet_btn");
+            let btn = document.getElementById("btn");
+            btn.addEventListener("click", (event) => {
+                let name_arr = [];
+                for (var i=0; i < 3; i++) {
+                    let index = Math.floor(Math.random() * arr.length);
+                    console.log(index);
+                    name_arr.push(arr[index]);
+                }
+                console.log("---")
+                let dot_ptr = Math.floor(Math.random() * (arr.length + 1));
+                name_arr.splice(dot_ptr, 0, "・");
+
+                let tw_url = new URL("http://twitter.com/intent/tweet");
+                let klis_name = name_arr.join("");
+                p.innerText = klis_name;
+                tw_url.searchParams.append("text", `実はKLiSの正式名称って「情報学群 ${klis_name}学類」なんです！\nKLiS正式名称ジェネレータ`);
+                tw_url.searchParams.append("url", "https://eniehack.github.io/klis-generator/");
+                tw_btn.setAttribute("href", tw_url.toString());
+            });
+        });
+    </script>
+    <style>
+        #tweet_btn {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <h1>KLiS正式名称ジェネレータ</h1>
+        <p>
+            <span>実はKLiSって……「</span>
+            <span id="result"></span>
+            <span>学類」なんです！</span>
+        </p>
+        <button id="btn">KLiSを作る</button>
+        <a href="http://twitter.com/intent/tweet" id="tweet_btn">Tweet</a>
+    </main>
+    <footer>
+        <a href="https://github.com/eniehack/klis-generator">GitHub</a>
+    </footer>
+</body>
+</html>
