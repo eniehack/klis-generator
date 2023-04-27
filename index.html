@@ -31,8 +31,10 @@
                     name_arr.push(arr[index]);
                 }
                 console.log("---");
-                let dot_ptr = Math.floor(Math.random() * (arr.length + 1));
-                name_arr.splice(dot_ptr, 0, "・");
+                for (let i=0; i < Math.floor(checkvalue/3); i++) {
+                    let dot_ptr = Math.floor(Math.random() * (checkvalue + 1));
+                    name_arr.splice(dot_ptr, 0, "・");
+                }
 
                 let tw_url = new URL("http://twitter.com/intent/tweet");
                 let klis_name = name_arr.join("");
