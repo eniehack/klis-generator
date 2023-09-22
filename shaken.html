@@ -7,7 +7,35 @@
     <meta name=”robots” content=”noindex”>
     <title>shaken正式名称ジェネレータ</title>
     <script defer="defer">
+        function pickup(arr, length) {
+            let name_arr = [];
+            for (var i=0; i < length; i++) {
+                let index = Math.floor(Math.random() * arr.length);
+                name_arr.push(arr[index]);
+            }
+            return name_arr;
+        }
+        function overdose_generator() {
+            arr.push("筑波", "大学");
+            return pickup(arr, 10).join("");
+        }
+        function default_generator() {
+            return pickup(arr, 4).join("");
+        }
+        function bigmotor_generator() {
+            let picked_arr = pickup(arr, 2);
+            var str = "";
+            str += picked_arr[0].repeat(18);
+            str += picked_arr[1].repeat(9);
+            str += picked_arr[0].repeat(18);
+            return str;
+        }
         let arr = ["社会", "科学", "研究"];
+        const handler = {
+            "overdose-mode": overdose_generator,
+            "default-mode": default_generator,
+            "bigmotor-mode": bigmotor_generator,
+        }
         window.addEventListener("load", (event) => {
             let p = document.getElementById("result");
             let tw_btn = document.getElementById("tweet_btn");
@@ -22,20 +50,9 @@
                         checkvalue_str = mode_elem.item(i).value;
                     }
                 }
-
-                let checkvalue = Number(checkvalue_str);
-                if (checkvalue === 10) {
-                    arr.push("筑波", "大学")
-                }
-
-                for (var i=0; i < checkvalue; i++) {
-                    let index = Math.floor(Math.random() * arr.length);
-                    console.log(index);
-                    name_arr.push(arr[index]);
-                }
+                const shaken_name = handler[checkvalue_str]();
 
                 let tw_url = new URL("http://twitter.com/intent/tweet");
-                let shaken_name = name_arr.join("");
                 p.innerText = shaken_name;
             });
         });
@@ -55,10 +72,12 @@
             <span>会」なんです！</span>
         </p>
         <fieldset>
-            <input type="radio" name="mode" value="4" id="default-mode" checked>
+            <input type="radio" name="mode" value="default" id="default-mode" checked>
             <label for="default-mode">default</label>
-            <input type="radio" name="mode" value="10" id="overdose-mode">
+            <input type="radio" name="mode" value="overdose" id="overdose-mode">
             <label for="overdose-mode">overdose mode</label>
+            <input type="radio" name="mode" value="bigmotor" id="bigmotor-mode">
+            <label for="bigmotor-mode">bigmotor mode</label>
         </fieldset>
         <button id="btn">MAKE SHAKEN GREAT AGAIN!</button>
         <!--<a href="http://twitter.com/intent/tweet" id="tweet_btn" target="_blank" rel="noreferrer noopener">Tweet</a>-->
