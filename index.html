@@ -21,11 +21,18 @@
             }
             return name_arr;
         }
+        function insert_dot(arr, time) {
+            for (let i=0; i < time; i++) {
+                let dot_ptr = Math.floor(Math.random() * (arr.length + 0.4));
+                arr.splice(dot_ptr, 0, "・");
+            }
+            return arr;
+        }
         function overdose_generator() {
-            return pickup(arr, 10).join("");
+            return insert_dot(pickup(arr, 10), 3).join("");
         }
         function default_generator() {
-            return pickup(arr, 4).join("");
+            return insert_dot(pickup(arr, 4), 1).join("");
         }
         function bigmotor_generator() {
             let picked_arr = pickup(arr, 2);
